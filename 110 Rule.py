@@ -5,20 +5,20 @@ iteraciones = int(input("Ingrese el número de iteraciones: "))
 
 cadena = cadena.replace("0"," ").replace("1","█")
 
-# Diccionario con la "regla" del autómata "Regla 110".
+# Diccionario con la regla del autómata: "Regla 110".
 regla = {"   ":" ","  █":"█"," █ ":"█"," ██":"█",
         "█  ":" ","█ █":"█","██ ":"█","███":" "}
 
 for k in range(iteraciones):
     salida = ""
 
-    # Ciclo del autómata "Regla 110", que recorre la cadena binaria.
+    # Ciclo del autómata, que recorre el patrón binario en estado actual.
     for i in range(len(cadena)):
-        # En el caso del primer caracter...
+        # En el caso de la primera célula...
         if i == 0:
             patron = " " + cadena[0] + cadena[1]
 
-        # En el caso del último caracter...
+        # En el caso de la última célula...
         elif i == len(cadena) - 1:
             patron = cadena[-2] + cadena[-1] + " "
 
