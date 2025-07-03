@@ -1,26 +1,40 @@
 import time
 
-cadena = input("Ingrese una cadena (0 y 1): ")
+cadena = input("Ingrese una cadena binaria (0s y 1s): ")
 iteraciones = int(input("Ingrese el número de iteraciones: "))
-cadena = cadena.replace("0"," ").replace("1","█") # Reemplaza 0 por espacio y 1 por bloque lleno (█) para visualización
 
-regla = {"   ":" ","  █":"█"," █ ":"█"," ██":"█",       # Regla 110 (Original)
+cadena = cadena.replace("0"," ").replace("1","█")
+
+# Diccionario con la regla original del autómata: Regla 110.
+regla = {"   ":" ","  █":"█"," █ ":"█"," ██":"█",       
         "█  ":" ","█ █":"█","██ ":"█","███":" "}
 
-regla_triangulo = {"   ": " ", "  █": "█", " █ ": "█", " ██": " ", # reglas actualizadas
+# Diccionario con la regla modificada del autómata.
+regla_modificada = {"   ": " ", "  █": "█", " █ ": "█", " ██": " ",
                     "█  ": "█", "█ █": " ", "██ ": "█", "███": " "}
+                          
+for k in range(iteraciones):                   
+    salida = ""
 
-print(cadena)                                   # imprime por consola la cadena inicial
-for k in range(iteraciones):                    #Itera el número de veces que se ha indicado
-    nueva_cadena = ""                           # crea una cadena vacia la cual se rellenará tomando en cuenta la última cadena y las reglas
-    for i in range(len(cadena)):                # se recorre la cadena
-        if i == 0:                              # en caso de ser el primer elemento, se rellena con 0 el elemento a la izquierda del pivote
+    # Ciclo del autómata, que recorre el patrón binario en estado actual.
+    for i in range(len(cadena)):     
+        # En el caso de la primera celda...
+        if i == 0:                             
             patron = " " + cadena[0] + cadena[1]
-        elif i == len(cadena) - 1:              # en caso de ser el último elemento, se rellena con 0 el elemento a la derecha del pivote
+
+        # En el caso de la última celda...
+        elif i == len(cadena) - 1:           
             patron = cadena[-2] + cadena[-1] + " "
-        else:                                   # se crea un patron tomando en cuenta el elemento a la izquierda, el elemento actual y el elemento a la derecha
+
+        # En el restante de casos...
+        else:                                 
             patron = cadena[i-1] + cadena[i] + cadena[i+1]
-        nueva_cadena += regla_triangulo[patron]
-    time.sleep(0.05)                            # retardo de 0.05 segundos para visualizar un efecto de aparición
-    print(nueva_cadena)                         # imprime por consola la nueva cadena
-    cadena = nueva_cadena                       # actualiza la cadena para la siguiente iteración
+        salida += regla_modificada[patron]
+
+    time.sleep(0.05) 
+
+    # Imprimir la salida de la iteración.                           
+    print(salida)
+
+    # Asignar a la variable "cadena" la salida de la iteración.                     
+    cadena = salida                       

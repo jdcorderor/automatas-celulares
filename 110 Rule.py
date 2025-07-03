@@ -14,11 +14,11 @@ for k in range(iteraciones):
 
     # Ciclo del autómata, que recorre el patrón binario en estado actual.
     for i in range(len(cadena)):
-        # En el caso de la primera célula...
+        # En el caso de la primera celda...
         if i == 0:
             patron = " " + cadena[0] + cadena[1]
 
-        # En el caso de la última célula...
+        # En el caso de la última celda...
         elif i == len(cadena) - 1:
             patron = cadena[-2] + cadena[-1] + " "
 
